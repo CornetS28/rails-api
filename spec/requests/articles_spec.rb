@@ -9,23 +9,21 @@ RSpec.describe ArticlesController do
             expect(response).to have_http_status(:ok)
         end
 
-         it 'returns  a proper json' do
+        it 'returns a proper json' do
             article = create :article
             get '/articles'
-            
-            expect(json_data).to eq(
-                 [
-                    {
-                        id: article.id.to_s,
-                        type: 'article',
-                        attributes: {
-                            title: article.title,
-                            content: article.content,
-                            slug: article.slug
-                        }
-                    }
-                ]
-            )
+
+            aggregate_failures do
+                expect(json_data.length).to eq(1)
+                expected = json_data.first
+                expect(expected[:id]).to eq(article.id.to_s)
+                expect(expected[:type]).to eq('article')
+                expect(expected[:attributes]).to eq(
+                    title: article.title,
+                    content: article.content,
+                    slug: article.slug      
+                )
+            end
         end
     end
 end
