@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Handle Errors:
 
-Things you may want to cover:
+- https://github.com/driggl/jsonapi_errors_handler
 
-* Ruby version
+### Pagination
 
-* System dependencies
+- https://github.com/useo-pl/jsom-pagination
 
-* Configuration
+### Json APi
 
-* Database creation
+- https://github.com/jsonapi-serializer/jsonapi-serializer
 
-* Database initialization
+### Json Api Example
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- https://jsonapi.org/examples/#pagination
