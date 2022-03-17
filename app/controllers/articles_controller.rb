@@ -1,9 +1,12 @@
 class ArticlesController < ActionController::API
+    include Paginable
     def index
-        articles = Article.recent
-        render json: serializer.new(articles), status: :ok
+        paginated = paginate(Article.recent)
+        render_collection(paginated)
     end
+
     def serializer
         ArticleSerializer
     end
+
 end
