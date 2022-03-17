@@ -24,6 +24,8 @@ RSpec.describe Article, type: :model do
       expect(subject.errors[:slug]).to include("can't be blank")
     end
 
+    
+
 
     # article = build :article, slug: ''
     #   expect(article).not_to be_valid
@@ -41,5 +43,24 @@ RSpec.describe Article, type: :model do
     #     expect(subject).to be_valid
         
     # end
+  end
+
+  describe '.recent' do
+    it 'should list recent article first' do
+      recent_article = create(:article)
+      older_article = create(:article, created_at: 1.hour.ago)
+     
+      expect(described_class.recent).to eq(
+        [ recent_article, older_article ]
+      )
+
+      recent_article.update_column(:created_at, 2.hours.ago)
+
+      expect(described_class.recent).to eq(
+        [ older_article, recent_article ]
+      )
+
+
+    end
   end
 end

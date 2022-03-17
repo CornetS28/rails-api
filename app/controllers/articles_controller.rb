@@ -1,6 +1,6 @@
 class ArticlesController < ActionController::API
     def index
-        articles = Article.all
+        articles = Article.recent
         render json: serializer.new(articles), status: :ok
     end
     def serializer

@@ -16,6 +16,7 @@ RSpec.describe ArticlesController do
             aggregate_failures do
                 expect(json_data.length).to eq(1)
                 expected = json_data.first
+                
                 expect(expected[:id]).to eq(article.id.to_s)
                 expect(expected[:type]).to eq('article')
                 expect(expected[:attributes]).to eq(
@@ -24,6 +25,15 @@ RSpec.describe ArticlesController do
                     slug: article.slug      
                 )
             end
+        end
+
+        it 'returns articles in the proper order' do
+            recent_article = create(:article)
+            older_article = create(:article, created_at: 1.hour.ago)
+            get '/articles'
+            ids = json_data.map { |item| item[:id].to_i }
+
+            expect(ids).to(eq([recent_article.id, older_article.id]))
         end
     end
 end
