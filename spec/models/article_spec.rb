@@ -3,46 +3,46 @@ require 'rails_helper'
 # bundle exec rspec ./spec/models/article_spec.rb
 
 RSpec.describe Article, type: :model do
-  describe 'validation tests' do
-    # it 'creates a article' do
-    #   expect(subject.save).to be_truthy
-    # end
-
-    # it 'tests that article is valid' do
-    #   expect(subject).to be_valid
-    # end 
-
-    it 'validates title presence' do
-      subject.title = ''
-      expect(subject).not_to be_valid
-      expect(subject.errors[:title]).to include("can't be blank")
+  describe '#validations' do
+    it 'should test that the factory is valid' do
+      expect(build :article).to be_valid
     end
 
-    it 'validates slug presence' do
-      subject.slug = ''
-      expect(subject).not_to be_valid
-      expect(subject.errors[:slug]).to include("can't be blank")
+    # it 'validates title presence' do
+    #   subject.title = ''
+    #   expect(subject).not_to be_valid
+    #   expect(subject.errors[:title]).to include("can't be blank")
+    # end
+
+    it 'should validate the presence of the title' do
+      article = build :article, title: ''
+      expect(article).not_to be_valid
+      expect(article.errors.messages[:title]).to include("can't be blank")
     end
 
-    
-
-
-    # article = build :article, slug: ''
-    #   expect(article).not_to be_valid
-    #   expect(article.errors.messages[:slug]).to include("can't be blank")
-    
-
-    # it 'validates slug not unique' do
-    #   before { subject.create!(name: 'foo', email: 'john@home.xyz') }
-    #     expect(subject).to be_invalid
-    #     expect(subject.errors[:slug]).to include("has already been taken")
+    # it 'validates slug presence' do
+    #   subject.slug = ''
+    #   expect(subject).not_to be_valid
+    #   expect(subject.errors[:slug]).to include("can't be blank")
     # end
 
-    # it 'validates slug unique' do
-    #   before { subject.create!(name: 'foo', email: 'jane@home.xyz') }
-    #     expect(subject).to be_valid
-        
-    # end
+    it 'should validate the presence of the slug' do
+      article = build :article, slug: ''
+      expect(article).not_to be_valid
+      expect(article.errors.messages[:slug]).to include("can't be blank")
+    end
+
+    it 'should validate the presence of the content' do
+      article = build :article, content: ''
+      expect(article).not_to be_valid
+      expect(article.errors.messages[:content]).to include("can't be blank")
+    end
+
+    it 'should validate uniqueness of the slug' do
+      article = create :article
+      invalid_article = build :article, slug: article.slug
+      expect(invalid_article).not_to be_valid
+    end
   end
 
   describe '.recent' do
