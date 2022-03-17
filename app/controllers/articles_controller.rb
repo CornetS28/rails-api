@@ -1,5 +1,8 @@
 class ArticlesController < ActionController::API
     include Paginable
+    include JsonapiErrorsHandler
+    rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
+    
     def index
         paginated = paginate(Article.recent)
         render_collection(paginated)
