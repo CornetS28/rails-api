@@ -29,6 +29,7 @@
 - add this gem: `gem "octokit", "~> 4.0"`
 - run `bundle`
 - in your console, run: `GITHUB_LOGIN='CornetS28' GITHUB_PASSWORD='your password' rails c`
+- login with 2 factor (OTP), run: client.user(ENV['GITHUB_LOGIN'], :headers => { "X-GitHub-OTP" => "your-2-factor-code"})
 - check that your're logged in, run: `ENV['GITHUB_LOGIN']`
 - Create a client, run: `client = Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])`
-- use the client id and client_secret provided by GitHuh, run: `client = Octokit::Client.new(client_id: ENV['your-clinet-id'], client_secret: ENV['your-client-secret'])
+- use the client id and client_secret provided by GitHuh, run: `client = Octokit::Client.new(client_id: ENV['your-clinet-id'], client_secret: ENV['your-client-secret'])`
